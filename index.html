@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediSecure - IT-аутсорсинг для медицинских учреждений</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --accent: #ea4335;
+            --light: #f8f9fa;
+            --dark: #202124;
+            --gray: #5f6368;
+            --teal: #00bcd4;
+            --blue-light: #e8f0fe;
+            --green-light: #e6f4ea;
+            --red-light: #fce8e6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f0fe 100%);
+            background-attachment: fixed;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover:before {
+            transform: translateX(0);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #0d47a1 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(26, 115, 232, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0d652d 100%);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52, 168, 83, 0.3);
+        }
+        
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent) 0%, #b31412 100%);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(234, 67, 53, 0.3);
+        }
+        
+        section {
+            padding: 100px 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 70px;
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--teal));
+            border-radius: 5px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 50px;
+            text-align: center;
+            line-height: 1.8;
+        }
+        
+        /* Header & Hero */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--teal);
+            font-size: 2rem;
+        }
+        
+        .logo span {
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.05rem;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--teal));
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        /* Мобильное меню */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            right: -300px;
+            width: 280px;
+            height: calc(100vh - 80px);
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 999;
+            padding: 20px;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu ul {
+            list-style: none;
+        }
+        
+        .mobile-menu ul li {
+            margin-bottom: 20px;
+        }
+        
+        .mobile-menu ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: block;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .mobile-menu ul li a:hover {
+            background: var(--blue-light);
+        }
+        
+        .mobile-phone {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--blue-light);
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
+        .mobile-phone i {
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .mobile-phone span {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .hero {
+            background: linear-gradient(120deg, rgba(26, 115, 232, 0.85) 0%, rgba(0, 188, 212, 0.85) 100%), url('https://images.unsplash.com/photo-1581595219319-4c06b7dd2d0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 220px 0 150px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero h1 {
+            color: white;
+            font-size: 3.8rem;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            line-height: 1.2;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23f8f9fa' fill-opacity='1' d='M0,192L80,170.7C160,149,320,107,480,112C640,117,800,171,960,181.3C1120,192,1280,160,1360,144L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: bottom;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 50px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 10px; /* Изменено с 40px на 10px - подняли кнопки на 30px */
+        }
+        
+        /* Pain Points Section */
+        .pain-points {
+            background-color: white;
+            position: relative;
+        }
+        
+        .pain-points:before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23f8f9fa' fill-opacity='1' d='M0,256L80,261.3C160,267,320,277,480,256C640,235,800,181,960,160C1120,139,1280,149,1360,154.7L1440,160L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: top;
+        }
+        
+        .pain-points-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .pain-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+        
+        .pain-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s, box-shadow 0.4s;
+            border-top: 5px solid var(--teal);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .pain-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, var(--blue-light), white);
+            transition: height 0.4s ease;
+            z-index: -1;
+        }
+        
+        .pain-card:hover:before {
+            height: 100%;
+        }
+        
+        .pain-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .pain-card i {
+            font-size: 3rem;
+            color: var(--teal);
+            margin-bottom: 25px;
+            transition: transform 0.4s;
+        }
+        
+        .pain-card:hover i {
+            transform: scale(1.2);
+        }
+        
+        .pain-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+        
+        .pain-card p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+        
+        /* Services Section */
+        .services {
+            background: linear-gradient(to bottom, #f8f9fa, #e8f0fe);
+            position: relative;
+        }
+        
+        .services:before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,224L80,213.3C160,203,320,181,480,181.3C640,181,800,203,960,197.3C1120,192,1280,160,1360,144L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: top;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .service-icon {
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary), var(--teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-icon:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .service-icon i {
+            font-size: 5rem;
+            color: white;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-content {
+            padding: 35px;
+        }
+        
+        .service-content h3 {
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-content h3 i {
+            margin-right: 15px;
+            color: var(--teal);
+        }
+        
+        .service-content p {
+            margin-bottom: 25px;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+        
+        .service-content ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .service-content ul li {
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .service-content ul li:before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--secondary);
+            background: var(--green-light);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Cases Section */
+        .cases {
+            background-color: white;
+            position: relative;
+        }
+        
+        .cases:before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23e8f0fe' fill-opacity='1' d='M0,288L80,261.3C160,235,320,181,480,181.3C640,181,800,235,960,234.7C1120,235,1280,181,1360,154.7L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: top;
+        }
+        
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .case-card {
+            background: linear-gradient(135deg, white, var(--blue-light));
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--teal);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s;
+        }
+        
+        .case-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .case-card:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 8rem;
+            font-family: Georgia, serif;
+            color: rgba(26, 115, 232, 0.05);
+            line-height: 1;
+        }
+        
+        .case-card h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .case-card h3 i {
+            margin-right: 15px;
+            color: var(--teal);
+            font-size: 1.8rem;
+            background: rgba(0, 188, 212, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .case-card p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            text-align: center;
+            padding: 150px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta h2 {
+            color: white;
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.15;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta p {
+            font-size: 1.4rem;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-form {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 50px;
+            max-width: 700px;
+            margin: 40px auto 0;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-family: 'Raleway', sans-serif;
+            background: white;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.15);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item input {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+        }
+        
+        .checkbox-item label {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+        
+        /* Guarantees Section */
+        .guarantees {
+            background: linear-gradient(to bottom, #e8f0fe, #f8f9fa);
+            position: relative;
+        }
+        
+        .guarantees:before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,288L80,261.3C160,235,320,181,480,181.3C640,181,800,235,960,234.7C1120,235,1280,181,1360,154.7L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: top;
+        }
+        
+        .guarantees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+        
+        .guarantee-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .guarantee-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .guarantee-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary), var(--teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 20px rgba(26, 115, 232, 0.2);
+        }
+        
+        .guarantee-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 100px 0 40px;
+            position: relative;
+        }
+        
+        footer:before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23e8f0fe' fill-opacity='1' d='M0,224L80,213.3C160,203,320,181,480,181.3C640,181,800,203,960,197.3C1120,192,1280,160,1360,144L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: top;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+            color: white;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--teal);
+            border-radius: 2px;
+        }
+        
+        .footer-column p {
+            color: #bbb;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 18px;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-column ul li a i {
+            margin-right: 12px;
+            width: 25px;
+            color: var(--teal);
+            font-size: 1.1rem;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info i {
+            margin-right: 20px;
+            color: var(--teal);
+            font-size: 1.4rem;
+            min-width: 25px;
+            margin-top: 5px;
+        }
+        
+        .contact-info span {
+            color: #bbb;
+            line-height: 1.6;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #444;
+            color: #999;
+            font-size: 0.95rem;
+        }
+        
+        /* Счетчик - исправление контраста */
+        .counter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0d47a1, #1a73e8);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 700px;
+            margin: 60px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .counter i {
+            margin-right: 25px;
+            font-size: 3.5rem;
+            color: var(--teal);
+        }
+        
+        .counter div {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+        
+        .counter span {
+            font-size: 2.5rem;
+            margin: 0 10px;
+            color: var(--teal);
+            font-weight: 700;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.3rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                padding: 180px 0 120px;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 150px 0 100px;
+            }
+            
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                gap: 20px;
+                margin-top: 10px; /* Также изменено для мобильной версии */
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+            
+            .cta-form {
+                padding: 30px;
+            }
+            
+            .checkbox-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 130px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.9rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .counter {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+            
+            .counter i {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .footer-container {
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>MediSecure</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#problems">Проблемы</a></li>
+                <li><a href="#solutions">Решения</a></li>
+                <li><a href="#cases">Кейсы</a></li>
+                <li><a href="#guarantees">Гарантии</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Мобильное меню -->
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#problems">Проблемы</a></li>
+                <li><a href="#solutions">Решения</a></li>
+                <li><a href="#cases">Кейсы</a></li>
+                <li><a href="#guarantees">Гарантии</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <div class="mobile-phone">
+                <i class="fas fa-phone-alt"></i>
+                <span>8 (800) 123-45-67</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>IT-аутсорсинг для медицинских учреждений</h1>
+            <p>Гарантируем бесперебойную работу оборудования, 100% защиту данных пациентов и соответствие требованиям 152-ФЗ</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-accent">Защитить клинику →</a>
+                <a href="#solutions" class="btn btn-primary">Наши решения</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points Section -->
+    <section id="problems" class="pain-points">
+        <div class="container">
+            <h2 class="section-title">Знакомы ли вам эти проблемы?</h2>
+            <p class="section-subtitle">Медицинские учреждения ежедневно сталкиваются с IT-вызовами, которые влияют на качество обслуживания пациентов и финансовые показатели</p>
+            <div class="pain-points-container">
+                <div class="pain-cards">
+                    <div class="pain-card">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Простой оборудования</h3>
+                        <p>КТ/МРТ простаивают из-за сбоя ПО — упущенная выручка и срывы приемов.</p>
+                    </div>
+                    <div class="pain-card">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <h3>Штрафы за нарушения</h3>
+                        <p>До 500 000 ₽ за нарушение 152-ФЗ или утечку истории болезни пациентов.</p>
+                    </div>
+                    <div class="pain-card">
+                        <i class="fas fa-ban"></i>
+                        <h3>Отсутствие доступа</h3>
+                        <p>Врачи не могут получить доступ к снимкам DICAM во время операции.</p>
+                    </div>
+                    <div class="pain-card">
+                        <i class="fas fa-file-contract"></i>
+                        <h3>Соответствие требованиям</h3>
+                        <p>ФСТЭК требует аттестации системы — нет ресурсов на подготовку.</p>
+                    </div>
+                    <div class="pain-card">
+                        <i class="fas fa-print"></i>
+                        <h3>Сбои оборудования</h3>
+                        <p>Принтер для направлений сломался — регистратура парализована.</p>
+                    </div>
+                    <div class="pain-card">
+                        <i class="fas fa-user-shield"></i>
+                        <h3>Защита данных</h3>
+                        <p>Требования к хранению медицинских данных (МИС, архивы снимков).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="solutions" class="services">
+        <div class="container">
+            <h2 class="section-title">Наши решения</h2>
+            <p class="section-subtitle">Комплексный IT-аутсорсинг для медицинских учреждений любого масштаба</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3><i class="fas fa-shield-alt"></i> Защита данных по 152-ФЗ</h3>
+                        <p>Аттестация СЗПДн, шифрование, протоколирование. Гарантия прохождения проверок Роскомнадзора.</p>
+                        <ul>
+                            <li>Соответствие ФСТЭК и ФСБ</li>
+                            <li>Защита персональных данных</li>
+                            <li>Аттестация рабочих мест</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-medical"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3><i class="fas fa-headset"></i> Поддержка МИС 24/7</h3>
+                        <p>Мониторинг PACS, RIS, интеграция с лабораторным оборудованием. Гарантированный uptime 99.9%.</p>
+                        <ul>
+                            <li>Круглосуточная техническая поддержка</li>
+                            <li>Интеграция медицинского оборудования</li>
+                            <li>Оперативное устранение неполадок</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3><i class="fas fa-redo"></i> Аварийное восстановление</h3>
+                        <p>Резервные копии DICOM-архивов ежечасно. Восстановление данных за 15 минут в случае сбоя.</p>
+                        <ul>
+                            <li>Ежечасное резервное копирование</li>
+                            <li>Гарантированное восстановление</li>
+                            <li>Защита от кибератак</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases Section -->
+    <section id="cases" class="cases">
+        <div class="container">
+            <h2 class="section-title">Наши клиенты</h2>
+            <p class="section-subtitle">Медицинские учреждения, которые доверили нам свою IT-инфраструктуру</p>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <h3><i class="fas fa-hospital"></i> «СканДиагностика»</h3>
+                    <p>"После внедрения системы мониторинга оборудования и ПО мы сократили простой МРТ на 80% и увеличили пропускную способность центра на 25%. Теперь мы уверены в бесперебойной работе нашего оборудования."</p>
+                </div>
+                <div class="case-card">
+                    <h3><i class="fas fa-tooth"></i> «ДенталГрупп»</h3>
+                    <p>"Благодаря MediSecure мы прошли аттестацию ФСТЭК за 3 недели без отрыва от основной деятельности. Теперь мы полностью соответствуем требованиям 152-ФЗ и ФЗ-323, что избавило нас от риска штрафов."</p>
+                </div>
+                <div class="case-card">
+                    <h3><i class="fas fa-heartbeat"></i> «КардиоЦентр»</h3>
+                    <p>"После сбоя системы хранения данных команда MediSecure восстановила историю болезни 17 000 пациентов за 40 минут. Благодаря их профессионализму, ни один пациент не пострадал, а работа клиники не прерывалась."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantees Section -->
+    <section id="guarantees" class="guarantees">
+        <div class="container">
+            <h2 class="section-title">Наши гарантии</h2>
+            <p class="section-subtitle">Мы берем на себя ответственность за бесперебойную работу ваших медицинских систем</p>
+            <div class="guarantees-grid">
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-ruble-sign"></i>
+                    </div>
+                    <h3>Фиксированная цена</h3>
+                    <p>Прозрачное ценообразование без скрытых платежей и дополнительных сборов</p>
+                </div>
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <h3>Реакция &lt; 15 мин</h3>
+                    <p>На критические инциденты реагируем в течение 15 минут 24/7/365</p>
+                </div>
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3>Материальная ответственность</h3>
+                    <p>Возмещаем убытки в случае утечки данных согласно договору</p>
+                </div>
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Еженедельные отчеты</h3>
+                    <p>Подробная отчетность по uptime систем и предотвращенным угрозам</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta">
+        <div class="container cta-container">
+            <h2>Узнайте стоимость IT-аутсорсинга для вашей клиники</h2>
+            <p>Оставьте контакты и получите бесплатный IT-аудит, план соответствия требованиям и чек-лист «12 точек защиты данных пациентов»</p>
+            
+            <div class="cta-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Имя / Должность</label>
+                        <input type="text" id="name" class="form-control" placeholder="Иванов Иван Иванович / Главный врач" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="+7 (999) 999-99-99" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Тип учреждения</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="type1" name="type" value="private">
+                                <label for="type1">Частная клиника</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="type2" name="type" value="network">
+                                <label for="type2">Сеть клиник</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="type3" name="type" value="state">
+                                <label for="type3">Государственное учреждение</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task">Основная задача</label>
+                        <select id="task" class="form-control" required>
+                            <option value="">Выберите задачу</option>
+                            <option value="protection">Защита персональных данных</option>
+                            <option value="backup">Резервирование МИС</option>
+                            <option value="support">Поддержка оборудования</option>
+                            <option value="compliance">Соответствие требованиям ФСТЭК/ФСБ</option>
+                            <option value="network">Настройка сетевой инфраструктуры</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="display: block; margin: 30px auto 0;">Получить бесплатный аудит →</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>MediSecure</h3>
+                    <p>Профессиональный IT-аутсорсинг для медицинских учреждений. Обеспечиваем бесперебойную работу медицинских систем и соответствие регуляторным требованиям.</p>
+                    <p style="margin-top: 20px; font-style: italic; color: #ddd;">"Жизни зависят от технологий. Мы гарантируем их надежность."</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <div class="contact-info">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Экстренная поддержка: 8 (800) 123-45-67</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <span>compliance@medisecure.ru</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>г. Москва, ул. Медицинская, 15, офис 401</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-clock"></i>
+                        <span>Круглосуточная поддержка 24/7</span>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Ресурсы</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-file-pdf"></i> Скачать памятку «5 ошибок при хранении медицинских данных»</a></li>
+                        <li><a href="#"><i class="fas fa-file-pdf"></i> Чек-лист «12 точек защиты ПДн пациентов»</a></li>
+                        <li><a href="#"><i class="fas fa-file-pdf"></i> Руководство по соответствию ФЗ-323</a></li>
+                        <li><a href="#"><i class="fas fa-file-pdf"></i> Требования ФСТЭК к медицинским учреждениям</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© MediSecure 2023. Соответствуем ст. 16 ФЗ-323 «Об охране здоровья». Лицензия ФСТЭК №12345, Лицензия ФСБ №67890</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике вне его области
+        document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Закрываем мобильное меню после клика
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Create a success message
+            const successMessage = document.createElement('div');
+            successMessage.innerHTML = `
+                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 2000;">
+                    <div style="background: white; padding: 40px; border-radius: 20px; text-align: center; max-width: 500px;">
+                        <i class="fas fa-check-circle" style="font-size: 5rem; color: #34a853;"></i>
+                        <h2 style="margin: 20px 0;">Заявка отправлена!</h2>
+                        <p style="margin-bottom: 30px; font-size: 1.2rem;">Наш специалист свяжется с вами в течение 30 минут для обсуждения деталей бесплатного аудита.</p>
+                        <button id="closePopup" class="btn btn-primary" style="padding: 12px 30px;">Понятно</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(successMessage);
+            
+            // Close popup event
+            document.getElementById('closePopup').addEventListener('click', function() {
+                successMessage.remove();
+            });
+            
+            this.reset();
+        });
+        
+        // Counter animation
+        function animateCounter(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = value.toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Initialize counter when it comes into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counterElement = document.querySelector('.counter span');
+                    animateCounter(counterElement, 0, 24713, 2000);
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.querySelector('.counter'));
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+        
+        // Card hover animations
+        const cards = document.querySelectorAll('.pain-card, .service-card, .case-card, .guarantee-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transition = 'transform 0.4s ease, box-shadow 0.4s ease';
+            });
+        });
+    </script>
+</body>
+</html>
